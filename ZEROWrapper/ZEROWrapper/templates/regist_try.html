@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <div class="container-fluid">
+        <br>
+        {{ form.non_field_errors }}
+        {% for item in form %}
+        <div class="form-group col-md-4 col-md-offset-4 mx-5">
+            <label for="{{item.id_for_label}}">{{item.label}}</label>
+            <input
+                type="{{item.field.widget.input_type}}"
+                class="form-control"
+                {% if item.field.required %}required{% endif %}
+                name="{{item.name}}"
+                id="{{item.id_for_label}}"
+                placeholder="{{ item.help_text }}">
+            {{ field.errors }}
+        </div>
+        {% endfor %}
+        <br>
+        <button type="submit" class="btn btn-secondary mx-5">ユーザ登録</button>
+    </div>
+</form>
+{% endblock %}
